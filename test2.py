@@ -12,8 +12,10 @@ imagen = imutils.resize(imagen, width=1000)
 gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
 
 # Preprocessing
-smoothed_image = cv2.GaussianBlur(gray, (5, 5), 0)
-adaptive_threshold = cv2.adaptiveThreshold(smoothed_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
+# Ajuste de parámetros para suavizado de imagen
+smoothed_image = cv2.GaussianBlur(gray, (7, 7), 0)
+adaptive_threshold = cv2.adaptiveThreshold(smoothed_image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11,
+                                           2)
 
 # Contour detection
 contours, _ = cv2.findContours(adaptive_threshold, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
@@ -39,4 +41,3 @@ cv2.putText(imagen, f"Number of worms: {num_worms}", (20, 40), cv2.FONT_HERSHEY_
 cv2.imshow("Detected Worms", imagen)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-
